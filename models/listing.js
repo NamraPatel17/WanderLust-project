@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { stringify } = require("querystring");
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
@@ -8,9 +9,7 @@ const listingSchema = new Schema({
   },
   description: String,
   image: {
-    type:String,
-    default:"https://unsplash.com/photos/palm-trees-line-a-walkway-with-geometric-art-2beINfjW6cg", 
-    set: (v) => v===""?"https://unsplash.com/photos/palm-trees-line-a-walkway-with-geometric-art-2beINfjW6cg" :  v,
+    url: String,
   },
   price: Number,
   location: String,
