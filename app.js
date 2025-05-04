@@ -70,7 +70,7 @@ app.get("/listings/new",(req,res) => {
 //Show Route
 app.get("/listings/:id", wrapAsync(async (req,res)=> {
   let {id} = req.params;
-  const listing= await Listing.findById(id);
+  const listing= await Listing.findById(id).populate("reviews");
   res.render("listings/show.ejs",{listing});
 }));
 
@@ -136,14 +136,16 @@ app.post("/listings/:id/reviews", validateReview,  wrapAsync(async(req,res) => {
 //   res.send("successful testing");
 // });
 
+// 404 handler for unmatched routes
 // app.all("*", (req, res, next) => {
-//   next(new ExpressError(404, "Page Not Found!"));
+//   next(new ExpressError("Page Not Found!", 404));
 // });
 
+
+
 app.use((err, req, res, next) => {
-  let { statusCode=500, message="Something Went Wrong"} = err;
-  res.status(status).render("error.ejs", {message});
-  //res.status(statusCode).send(message);
+  let { statusCode = 500 } = err;
+  res.status(statusCode).render("error.ejs", { err });
 });
 
 app.listen(8080, () => {
