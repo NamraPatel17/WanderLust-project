@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js")
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -76,8 +77,9 @@ app.get("/demouser", async (req,res) =>{
   res.send(registeredUser);
 });
 
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 // app.get("/testListing", async (req,res) => {
 //   let sampleListing = new Listing({
