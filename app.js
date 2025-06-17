@@ -103,6 +103,10 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 // app.get("/testListing", async (req,res) => {
 //   let sampleListing = new Listing({
 //     title:"My New Villa",
